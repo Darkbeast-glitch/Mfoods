@@ -15,3 +15,17 @@ class Products(models.Model):
 
     def __str__(self) -> str:
         return f"{self.product_name}, {self.product_price}"
+    
+class BillingAddress(models.Model):
+        name=models.CharField(max_length=20,blank=True,null=True)
+        emailaddress=models.EmailField( max_length=20, blank=True,null=True)
+        address=models.CharField(max_length=30,blank=True,null=True)
+        phone=models.IntegerField()
+        suggestion=models.CharField
+
+        class Meta:
+            verbose_name= "Billing Address"
+            verbose_name_plural= "Billing Addresses"
+
+        def __str__(self) -> str:
+                return f"{self.name }"   
