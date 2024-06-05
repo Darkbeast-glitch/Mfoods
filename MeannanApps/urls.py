@@ -1,13 +1,5 @@
 from django.urls import path
-from .views import HomePage
-from. views import About
-from.views import Contact
-from.views import Shop
-from.views import Checkout
-from.views import SingleProduct
-from.views import Cart
-from.views import News
-from.views import SingleNews
+from .views import HomePage,About,Contact,Shop,Checkout,SingleProduct,Cart,News,SingleNews
 
 urlpatterns = [
     path('', HomePage, name="homepage"),
