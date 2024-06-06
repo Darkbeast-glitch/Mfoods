@@ -1,13 +1,30 @@
 from django.shortcuts import render
-
+from .models import HomeProducts,Shop
 # Create your views here.
 
 def HomePage(request):
-    context = {}
+    products = HomeProducts.objects.filter(is_active=True)
+    context = {
+        'products':products,
+    }
 
     template_page='index.html'
 
     return render(request, template_page, context )
+
+    return render(request, template_page, context )
+
+# view funtion for all shops products
+def AllShop(request):
+    shop = Shop.objects.filter(is_active=True)
+    context = {
+        'shop':shop
+    }
+
+    template_page='shop.html'
+
+    return render(request, template_page, context )
+
 
 def About(request):
     context = {}
@@ -23,12 +40,6 @@ def Contact(request):
 
     return render(request, template_page, context )
 
-def Shop(request):
-    context = {}
-
-    template_page='shop.html'
-
-    return render(request, template_page, context )
 
 def Checkout(request):
     context = {}

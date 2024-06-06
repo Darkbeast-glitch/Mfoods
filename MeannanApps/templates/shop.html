@@ -1,286 +1,209 @@
 {% extends 'base.html'%}
 {% load static%}
-	
-{%block content%}
-<!-- search area -->
-<div class="search-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <span class="close-btn"><i class="fas fa-window-close"></i></span>
-                <div class="search-bar">
-                    <div class="search-bar-tablecell">
-                        <h3>Search For:</h3>
-                        <input type="text" placeholder="Keywords">
-                        <button type="submit">Search <i class="fas fa-search"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end search arewa -->
+{% block content%}
 
-<!-- breadcrumb-section -->
-<div class="breadcrumb-section breadcrumb-bg">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-8 offset-lg-2 text-center">
-                <div class="breadcrumb-text">
-                    <p>Fresh and Organic</p>
-                    <h1>Shop</h1>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end breadcrumb section -->
 
-<!-- products -->
-<div class="product-section mt-150 mb-150">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="product-filters">
-                    <ul>
-                        <li class="active" data-filter="*">All</li>
-                        <li data-filter=".condiments">Condiments</li>
-                        <li data-filter=".flours">Flours</li>
-                        <li data-filter=".spices">Spices</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-
-        <div class="row product-lists">
-            <div class="col-lg-4 col-md-6 text-center condiments">
-                <div class="single-product-item">
-                    <div class="product-image">
-                        <a href="{% url 'single-product' %}"><img src="{% static 'assets/img/images/groundnut_paste.jpg' %}" alt=""></a>
-                    </div>
-                    <h3>Groundnut Paste</h3>
-                    <p class="product-price"><span>Per Kg</span> 85$ </p>
-                    <a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 text-center condiments">
-                <div class="single-product-item">
-                    <div class="product-image">
-                        <a href="{% url 'single-product' %}"><img src="{% static 'assets/img/images/All Purpose Spice.jpg' %}" alt=""></a>
-                    </div>
-                    <h3>All Purpose Spice</h3>
-                    <p class="product-price"><span>Per Kg</span> 70$ </p>
-                    <a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 text-center condiments">
-                <div class="single-product-item">
-                    <div class="product-image">
-                    <a href="{% url 'single-product' %}"><img src="{% static 'assets/img/images/Bambara Beans.jpg' %}" alt=""></a>
-                </div>
-                <h3>Bambara Beans</h3>
-                <p class="product-price"><span>Per Kg</span> 35$ </p>
-                <a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                </div>
-            </div>
-
-            <div class="col-lg-4 col-md-6 text-center condiments">
-                    <div class="single-product-item">
-                        <div class="product-image">
-                         <a href="{% url 'single-product' %}"><img src="{% static 'assets/img/images/Red Beans.jpg' %}" alt=""></a>
-                    </div>
-        
-                        <h3>Red Beans</h3>
-                        <p class="product-price"><span>Per Kg</span> 35$ </p>
-                        <a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                    </div>
-                </div>        
-
-            <div class="col-lg-4 col-md-6 text-center flours">
-                <div class="single-product-item">
-                    <div class="product-image">
-                    <a href="{% url 'single-product' %}"><img src="{% static 'assets/img/images/Tombrown.jpg' %}" alt=""></a>
-                    </div>
-        
-                    <h3>Tombrown</h3>
-                    <p class="product-price"><span>Per Kg</span> 35$ </p>
-                    <a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                    </div>
-                </div>     
-                <div class="col-lg-4 col-md-6 text-center condiments">
-                    <div class="single-product-item">
-                        <div class="product-image">
-                        <a href="{% url 'single-product' %}"><img src="{% static 'assets/img/images/Sugar.jpg' %}" alt=""></a>
+        <!-- Fruits Shop Start-->
+        <div class="container-fluid fruite py-5">
+            <div class="container py-5">
+                <h1 class="mb-4">Fresh fruits shop</h1>
+                <div class="row g-4">
+                    <div class="col-lg-12">
+                        <div class="row g-4">
+                            <div class="col-xl-3">
+                                <div class="input-group w-100 mx-auto d-flex">
+                                    <input type="search" class="form-control p-3" placeholder="keywords" aria-describedby="search-icon-1">
+                                    <span id="search-icon-1" class="input-group-text p-3"><i class="fa fa-search"></i></span>
+                                </div>
+                            </div>
+                            <div class="col-6"></div>
+                            <div class="col-xl-3">
+                                <div class="bg-light ps-3 py-3 rounded d-flex justify-content-between mb-4">
+                                    <label for="fruits">Default Sorting:</label>
+                                    <select id="fruits" name="fruitlist" class="border-0 form-select-sm bg-light me-3" form="fruitform">
+                                        <option value="volvo">Nothing</option>
+                                        <option value="saab">Popularity</option>
+                                        <option value="opel">Organic</option>
+                                        <option value="audi">Fantastic</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-            
-                        <h3>Sugar</h3>
-                        <p class="product-price"><span>Per Kg</span> 35$ </p>
-                        <a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
+                        <div class="row g-4">
+                            <div class="col-lg-3">
+                                <div class="row g-4">
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <h4>Categories</h4>
+                                            <ul class="list-unstyled fruite-categorie">
+                                                <li>
+                                                    <div class="d-flex justify-content-between fruite-name">
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Apples</a>
+                                                        <span>(3)</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="d-flex justify-content-between fruite-name">
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Oranges</a>
+                                                        <span>(5)</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="d-flex justify-content-between fruite-name">
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Strawbery</a>
+                                                        <span>(2)</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="d-flex justify-content-between fruite-name">
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Banana</a>
+                                                        <span>(8)</span>
+                                                    </div>
+                                                </li>
+                                                <li>
+                                                    <div class="d-flex justify-content-between fruite-name">
+                                                        <a href="#"><i class="fas fa-apple-alt me-2"></i>Pumpkin</a>
+                                                        <span>(5)</span>
+                                                    </div>
+                                                </li>
+                                            </ul>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <h4 class="mb-2">Price</h4>
+                                            <input type="range" class="form-range w-100" id="rangeInput" name="rangeInput" min="0" max="500" value="0" oninput="amount.value=rangeInput.value">
+                                            <output id="amount" name="amount" min-velue="0" max-value="500" for="rangeInput">0</output>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="mb-3">
+                                            <h4>Additional</h4>
+                                            <div class="mb-2">
+                                                <input type="radio" class="me-2" id="Categories-1" name="Categories-1" value="Beverages">
+                                                <label for="Categories-1"> Organic</label>
+                                            </div>
+                                            <div class="mb-2">
+                                                <input type="radio" class="me-2" id="Categories-2" name="Categories-1" value="Beverages">
+                                                <label for="Categories-2"> Fresh</label>
+                                            </div>
+                                            <div class="mb-2">
+                                                <input type="radio" class="me-2" id="Categories-3" name="Categories-1" value="Beverages">
+                                                <label for="Categories-3"> Sales</label>
+                                            </div>
+                                            <div class="mb-2">
+                                                <input type="radio" class="me-2" id="Categories-4" name="Categories-1" value="Beverages">
+                                                <label for="Categories-4"> Discount</label>
+                                            </div>
+                                            <div class="mb-2">
+                                                <input type="radio" class="me-2" id="Categories-5" name="Categories-1" value="Beverages">
+                                                <label for="Categories-5"> Expired</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <h4 class="mb-3">Featured products</h4>
+                                        <div class="d-flex align-items-center justify-content-start">
+                                            <div class="rounded me-4" style="width: 100px; height: 100px;">
+                                                <img src="{% static 'assets/img/featur-1.jpg' %}" class="img-fluid rounded" alt="">
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-2">Big Banana</h6>
+                                                <div class="d-flex mb-2">
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                                <div class="d-flex mb-2">
+                                                    <h5 class="fw-bold me-2">2.99 $</h5>
+                                                    <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-start">
+                                            <div class="rounded me-4" style="width: 100px; height: 100px;">
+                                                <img src="{% static 'assets/img/featur-2.jpg' %}" class="img-fluid rounded" alt="">
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-2">Big Banana</h6>
+                                                <div class="d-flex mb-2">
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                                <div class="d-flex mb-2">
+                                                    <h5 class="fw-bold me-2">2.99 $</h5>
+                                                    <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-start">
+                                            <div class="rounded me-4" style="width: 100px; height: 100px;">
+                                                <img src="{% static 'assets/img/featur-3.jpg' %}" class="img-fluid rounded" alt="">
+                                            </div>
+                                            <div>
+                                                <h6 class="mb-2">Big Banana</h6>
+                                                <div class="d-flex mb-2">
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star text-secondary"></i>
+                                                    <i class="fa fa-star"></i>
+                                                </div>
+                                                <div class="d-flex mb-2">
+                                                    <h5 class="fw-bold me-2">2.99 $</h5>
+                                                    <h5 class="text-danger text-decoration-line-through">4.11 $</h5>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex justify-content-center my-4">
+                                            <a href="#" class="btn border border-secondary px-4 py-3 rounded-pill text-primary w-100">Vew More</a>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="position-relative">
+                                            <img src="{% static 'assets/img/banner-fruits.jpg' %}" class="img-fluid w-100 rounded" alt="">
+                                            <div class="position-absolute" style="top: 50%; right: 10px; transform: translateY(-50%);">
+                                                <h3 class="text-secondary fw-bold">Fresh <br> Fruits <br> Banner</h3>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <div class="col-lg-9">
+                                <div class="row g-4 justify-content-center">
+                                {% for sh in shop %}
+                                <div class="col-md-6 col-lg-6 col-xl-4">
+                                    <div class="rounded position-relative fruite-item">
+                                        <div class="fruite-img">
+                                            <img src="{% static 'assets/img/fruite-item-5.jpg' %}" class="img-fluid w-100 rounded-top" alt="">
+                                        </div>
+                                        <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">{{sh.category}}</div>
+                                        <div class="p-4 border border-secondary border-top-0 rounded-bottom">
+                                            <h4>{{sh.product_name}}</h4>
+                                            <p>{{sh.description}}</p>
+                                            <div class="d-flex justify-content-between flex-lg-wrap">
+                                                <p class="text-dark fs-5 fw-bold mb-0">${{sh.product_price}}</p>
+                                                <a href="#" class="btn border border-secondary rounded-pill px-3 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                             
+                                {% endfor %}
+                                    
+                                </div>
+                            </div>
                         </div>
                     </div>
-                   
-            <div class="col-lg-4 col-md-6 text-center flours">
-                <div class="single-product-item">
-                <div class="product-image">
-                    <a href="{% url 'single-product' %}"><img src="{% static 'assets/img/images/Banku Flour.jpg' %}" alt=""></a>
-                    </div>
-                    <h3>Banku Flour</h3>
-                    <p class="product-price"><span>Per Kg</span> 50$ </p>
-                    <a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 text-center condiments">
-                <div class="single-product-item">
-                    <div class="product-image">
-                        <a href="{% url 'single-product' %}"><img src="{% static 'assets/img/images/Black eye peas.jpg' %}" alt=""></a>
-                    </div>
-                    <h3>Black Eye Peas</h3>
-                    <p class="product-price"><span>Per Kg</span> 45$ </p>
-                    <a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 text-center spices">
-                <div class="single-product-item">
-                    <div class="product-image">
-                        <a href="{% url 'single-product' %}"><img src="{% static 'assets/img/images/Mixed Spice.jpg' %}" alt=""></a>
-                    </div>
-                    <h3>Mixed Spice</h3>
-                    <p class="product-price"><span>Per Kg</span> 80$ </p>
-                    <a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 text-center condiments">
-                <div class="single-product-item">
-                    <div class="product-image">
-                        <a href="{% url 'single-product' %}"><img src="{% static 'assets/img/images/Cashew Nuts.jpg' %}" alt=""></a>
-                    </div>
-                    <h3>Cashew Nuts</h3>
-                    <p class="product-price"><span>Per Kg</span> 80$ </p>
-                    <a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 text-center flours">
-                <div class="single-product-item">
-                    <div class="product-image">
-                        <a href="{% url 'single-product' %}"><img src="{% static 'assets/img/images/Cassava Flour.jpg' %}" alt=""></a>
-                    </div>
-                    <h3>Cassava Flour</h3>
-                    <p class="product-price"><span>Per Kg</span> 80$ </p>
-                    <a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 text-center condiments">
-                <div class="single-product-item">
-                    <div class="product-image">
-                        <a href="{% url 'single-product' %}"><img src="{% static 'assets/img/images/Coconut Oil.jpg' %}" alt=""></a>
-                    </div>
-                    <h3>Coconut Oil</h3>
-                    <p class="product-price"><span>Per Kg</span> 80$ </p>
-                    <a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 text-center flours">
-                <div class="single-product-item">
-                    <div class="product-image">
-                        <a href="{% url 'single-product' %}"><img src="{% static 'assets/img/images/Corn Grits.jpg' %}" alt=""></a>
-                    </div>
-                    <h3>Corn Grits</h3>
-                    <p class="product-price"><span>Per Kg</span> 80$ </p>
-                    <a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 text-center condiments">
-                <div class="single-product-item">
-                    <div class="product-image">
-                        <a href="{% url 'single-product' %}"><img src="{% static 'assets/img/images/Egg white.jpg' %}" alt=""></a>
-                    </div>
-                    <h3>Egg White</h3>
-                    <p class="product-price"><span>Per Kg</span> 80$ </p>
-                    <a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 text-center condiments">
-                <div class="single-product-item">
-                    <div class="product-image">
-                        <a href="{% url 'single-product' %}"><img src="{% static 'assets/img/images/Eggs.jpg' %}" alt=""></a>
-                    </div>
-                    <h3>Eggs</h3>
-                    <p class="product-price"><span>Per Kg</span> 80$ </p>
-                    <a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 text-center spices">
-                <div class="single-product-item">
-                    <div class="product-image">
-                        <a href="{% url 'single-product' %}"><img src="{% static 'assets/img/images/Grounded Garlic.jpg' %}" alt=""></a>
-                    </div>
-                    <h3>Grounded Garlic</h3>
-                    <p class="product-price"><span>Per Kg</span> 80$ </p>
-                    <a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 text-center spices">
-                <div class="single-product-item">
-                    <div class="product-image">
-                        <a href="{% url 'single-product' %}"><img src="{% static 'assets/img/images/Powdered Pepper.jpg' %}" alt=""></a>
-                    </div>
-                    <h3>Powdered Pepper</h3>
-                    <p class="product-price"><span>Per Kg</span> 80$ </p>
-                    <a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 text-center condiments">
-                <div class="single-product-item">
-                    <div class="product-image">
-                        <a href="{% url 'single-product' %}"><img src="{% static 'assets/img/images/Plantain and Peanuts Chips.jpg' %}" alt=""></a>
-                    </div>
-                    <h3>Plantain and Peanut Chips</h3>
-                    <p class="product-price"><span>Per Kg</span> 80$ </p>
-                    <a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 text-center flours">
-                <div class="single-product-item">
-                    <div class="product-image">
-                        <a href="{% url 'single-product' %}"><img src="{% static 'assets/img/images/Pancake Mix.jpg' %}" alt=""></a>
-                    </div>
-                    <h3>Pancake Mix</h3>
-                    <p class="product-price"><span>Per Kg</span> 80$ </p>
-                    <a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
-                </div>
-            </div>
-            <div class="col-lg-4 col-md-6 text-center condiments">
-                <div class="single-product-item">
-                    <div class="product-image">
-                        <a href="{% url 'single-product' %}"><img src="{% static 'assets/img/images/Palm Oil.jpg' %}" alt=""></a>
-                    </div>
-                    <h3>Palm Oil</h3>
-                    <p class="product-price"><span>Per Kg</span> 80$ </p>
-                    <a href="{% url 'cart' %}" class="cart-btn"><i class="fas fa-shopping-cart"></i> Add to Cart</a>
                 </div>
             </div>
         </div>
-    </div>
-</div>
+        <!-- Fruits Shop End-->
 
 
-
-        <div class="row">
-            <div class="col-lg-12 text-center">
-                <div class="pagination-wrap">
-                    <ul>
-                        <li><a href="#">Prev</a></li>
-                        <li><a class="active" href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#">Next</a></li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- end products -->
-
-
-{% endblock content%}
+    {% endblock content %}

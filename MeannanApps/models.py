@@ -3,21 +3,52 @@ from django.db import models
 # Create your models here
 # creating model for Products
 
-class Products(models.Model):
+class Category (models.Model):
+    category_name = models.CharField( max_length=50)
+
+    class Meta:
+         verbose_name = "Category"
+         verbose_name_plural = "Categories"
+    
+    def __str__(self) -> str:
+         return self.category_name
+
+
+
+# model for Home Products
+class HomeProducts(models.Model):
     product_name = models.CharField (max_length=50, blank=True, null=True)
     product_price = models.FloatField()
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
     product_image = models.ImageField(upload_to="products/")
     description = models.TextField()
+    is_active = models.BooleanField(default=True)
  
     class Meta:
-        verbose_name = "Product"
-    verbose_name_plural = "Products"
+        verbose_name = "HomeProduct"
+        verbose_name_plural = "HomeProducts"
 
     def __str__(self) -> str:
-        return f"{self.product_name}, {self.product_price}"
+        return f"{self.product_name}, Ghs {self.product_price}"
     
+# model for shop products
+
+class Shop(models.Model):
+    product_name = models.CharField (max_length=50, blank=True, null=True)
+    product_price = models.FloatField()
+    category = models.ForeignKey(Category, on_delete=models.CASCADE)
+    product_image = models.ImageField(upload_to="products/shops/")
+    description = models.TextField()
+    is_active = models.BooleanField(default=True)
+ 
+    class Meta:
+        verbose_name = "Shop"
+        verbose_name_plural = "Shops"
+
+    def __str__(self) -> str:
+        return f"{self.product_name}, Ghs {self.product_price}"
 class BillingAddress(models.Model):
-        name=models.CharField(max_length=200,blank=True,null=True)
+        name=models.CharField(max_length=50,blank=True,null=True)
         emailaddress=models.EmailField( blank=True,null=True)
         address=models.CharField(max_length=200,blank=True,null=True)
         phone=models.IntegerField()
@@ -67,7 +98,7 @@ class ShippingAddress(models.Model):
      
 
 class Order(models.Model):
-    products = models.ForeignKey(Products, on_delete=models.CASCADE)
+    products = models.ForeignKey(HomeProducts, on_delete=models.CASCADE)
     client=models.CharField(max_length=200, blank=True,null=True)
 
     class Meta:

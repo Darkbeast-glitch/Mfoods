@@ -1,9 +1,19 @@
 from django.contrib import admin
-from .models import Products, BillingAddress,ContactUs,ShippingAddress,Order
+from .models import (
+    HomeProducts,
+    BillingAddress,
+    ContactUs,
+    ShippingAddress,
+    Order,
+    Category,
+    Shop
+)
 
 # Register your models here.
 
-admin.site.register(Products)
+admin.site.register(HomeProducts)
+admin.site.register(Category)
+admin.site.register(Shop)
 admin.site.register(BillingAddress)
 admin.site.register(ContactUs)
 admin.site.register(ShippingAddress)
