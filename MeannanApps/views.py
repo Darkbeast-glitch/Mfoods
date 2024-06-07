@@ -1,5 +1,7 @@
-from django.shortcuts import render
-from .models import HomeProducts,Shop
+from django.shortcuts import render,get_object_or_404
+from .models import HomeProducts,Shop,Category
+from django.db.models import Count
+
 # Create your views here.
 
 def HomePage(request):
@@ -16,14 +18,42 @@ def HomePage(request):
 
 # view funtion for all shops products
 def AllShop(request):
+    """
+    All shops takes the request and filter out the active product
+    
+    
+    arg= request
+    
+    """
     shop = Shop.objects.filter(is_active=True)
+    categories = Category.objects.annotate(product_count=Count('shop'))
     context = {
-        'shop':shop
+        'shop':shop,
+        'categories': categories
     }
 
     template_page='shop.html'
 
     return render(request, template_page, context )
+
+
+# Shop View, to take care of all proudct shops
+
+def SingleProduct(request,id):
+    product = get_object_or_404(Shop, id=id)
+    category = Category.objects.annotate(product_count=Count('shop'))
+
+
+    
+    context = {
+        'product':product,
+        'category' : category,
+    }
+
+    template_page='shop-detail.html'
+
+    return render(request, template_page, context )
+
 
 
 def About(request):
@@ -48,12 +78,6 @@ def Checkout(request):
 
     return render(request, template_page, context )
 
-def SingleProduct(request):
-    context = {}
-
-    template_page='single-product.html'
-
-    return render(request, template_page, context )
 
 def Cart(request):
     context = {}
@@ -77,4 +101,11 @@ def SingleNews(request):
 
     return render(request, template_page, context )
 
+
+def Testimonial(request):
+    context = {}
+
+    template_page='testmonial.html'
+
+    return render(request, template_page, context )
 

@@ -44,7 +44,11 @@ class Shop(models.Model):
     class Meta:
         verbose_name = "Shop"
         verbose_name_plural = "Shops"
+        ordering = ['id']
+    
+    
 
+    
     def __str__(self) -> str:
         return f"{self.product_name}, Ghs {self.product_price}"
 class BillingAddress(models.Model):
