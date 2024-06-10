@@ -21,7 +21,7 @@ class HomeProducts(models.Model):
     product_price = models.FloatField()
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     product_image = models.ImageField(upload_to="products/")
-    description = models.TextField()
+    description = models.TextField(blank=True,null=True)
     is_active = models.BooleanField(default=True)
  
     class Meta:
