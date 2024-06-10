@@ -70,8 +70,7 @@ class ContactUs(models.Model):
     name=models.CharField(max_length=200, blank=True,null=True)
     email=models.EmailField(blank=True, null=True)
     phone=models.IntegerField()
-    subject=models.CharField(max_length=500, blank=True,null=True)
-    message=models.CharField(max_length=500, blank=True,null=True)
+    message=models.TextField(max_length=500, blank=True,null=True)
 
     class Meta:
 
@@ -80,7 +79,7 @@ class ContactUs(models.Model):
 
     
     def __str__(self) -> str:
-        return f"{self.name, self.email,self.phone}"
+        return self.name
     
 
 class ShippingAddress(models.Model):

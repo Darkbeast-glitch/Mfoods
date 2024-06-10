@@ -1,7 +1,7 @@
 from django.shortcuts import render,get_object_or_404
-from .models import HomeProducts,Shop,Category
+from .models import HomeProducts,Shop,Category,ContactUs
 from django.db.models import Count
-
+from django.contrib import messages
 # Create your views here.
 
 def HomePage(request):
@@ -64,7 +64,22 @@ def About(request):
     return render(request, template_page, context )
 
 def Contact(request):
-    context = {}
+    contacts = ContactUs.objects.all()
+    if request.method == "POST":
+        name = request.POST['fullname']
+        email = request.POST['email']
+        phone = request.POST['phone']
+        message = request.POST['message']
+        
+        
+        contact_list = ContactUs(name=name, email=email, phone=phone, message=message)
+        contact_list.save()
+        
+        messages.success(request, "Heya, we received your message, we shall revert😙")
+        
+    context = {
+        'contacts':contacts
+    }
 
     template_page='contact.html'
 
