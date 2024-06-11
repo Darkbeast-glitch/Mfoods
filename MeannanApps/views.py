@@ -89,7 +89,7 @@ def Contact(request):
 def Checkout(request):
     context = {}
 
-    template_page='checkout.html'
+    template_page='chackout.html'
 
     return render(request, template_page, context )
 
@@ -120,7 +120,16 @@ def SingleNews(request):
 def Testimonial(request):
     context = {}
 
-    template_page='testmonial.html'
+    template_page='testimonial.html'
+
+    return render(request, template_page, context )
+
+
+
+def Failed(request):
+    context = {}
+
+    template_page='404.html'
 
     return render(request, template_page, context )
 
