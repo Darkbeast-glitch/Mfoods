@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import HomePage,About,Contact,AllShop,Checkout,SingleProduct,Cart,News,SingleNews,Testimonial,Failed
+from .views import HomePage, About, Contact, AllShop, Checkout, SingleProduct, Cart, News, SingleNews, Testimonial, Failed
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -18,4 +18,5 @@ urlpatterns = [
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
