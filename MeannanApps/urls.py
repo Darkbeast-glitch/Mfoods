@@ -8,13 +8,13 @@ urlpatterns = [
     path('about-us', About, name="about"),
     path('contact', Contact, name="contact"),
     path('shop', AllShop, name="shop"),
-    path('check-out', Checkout, name="checkout"),
+    path('chack-out', Checkout, name="chackout"),
     path('single-product/<int:id>/', SingleProduct, name="single-product"),
     path('cart', Cart, name="cart"),
     path('news', News, name="news"),
     path('single-news', SingleNews, name="single-news"),
     path('testimonial', Testimonial, name="testimonial"),
-
+    path('404', Failed, name="404"),
 ]
 
 if settings.DEBUG:
