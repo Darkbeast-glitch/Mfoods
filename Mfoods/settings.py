@@ -40,10 +40,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
 
-    # ownapps
-    'MeannanApps',
-]
 
+    # ownapps
+    'crispy_forms',
+    'crispy_bootstrap4',
+    'MeannanApps',
+    'allauth',
+    'allauth.account',
+
+
+]
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -52,14 +59,20 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+
+    # auth middle
+    'allauth.account.middleware.AccountMiddleware',  # Add this line
+
 ]
 
 ROOT_URLCONF = 'Mfoods.urls'
+SITE_ID = 1
+ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR ,'templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -67,12 +80,19 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+
             ],
         },
     },
 ]
 
 WSGI_APPLICATION = 'Mfoods.wsgi.application'
+LOGIN_REDIRECT_URL = 'homepage'  # or whatever URL you want
+
+AUTHENTICATION_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
 
 
 # Database
