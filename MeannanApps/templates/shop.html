@@ -153,18 +153,36 @@
                                     </div>
                                 </div>
                             </div>
+                            <style>
+                                .card-container {
+                                    display: flex;
+                                    flex-wrap: wrap;
+                                  }
+                                  
+                                  .card-container .fruite-item {
+                                    display: flex;
+                                    flex-direction: column;
+                                  }
+                                  
+                                  .fruite-item .p-4 {
+                                    flex-grow: 1;
+                                  }
+                                  .product-image {
+                                    height: 300px; /* Adjust as needed */
+                                    object-fit: cover;
+                                  }
+                            </style>
                         <div class="col-lg-9">
-                                <div class="row g-4 justify-content-center">
+                                <div class="row g-4 justify-content-center card-container">
                                 {% for sh in shop %}
-                                <div class="col-md-6 col-lg-6 col-xl-4">
+                                <div class="col-md-6 col-lg-6 col-xl-4" >
                                     <div class="rounded position-relative fruite-item">
                                         <div class="fruite-img">
-                                            <img src="{{ sh.product_image.url }}" class="img-fluid w-100 rounded-top" alt="">
-                                        </div>
+                                            <img src="{{ sh.product_image.url }}" class="img-fluid w-100 rounded-top product-image" alt="">                                        </div>
                                         <div class="text-white bg-secondary px-3 py-1 rounded position-absolute" style="top: 10px; left: 10px;">{{sh.category}}</div>
                                         <div class="p-4 border border-secondary border-top-0 rounded-bottom">
                                             <h4>{{sh.product_name}}</h4>
-                                            <p>{{sh.description}}</p>
+                                            <p>{{ sh.description|truncatechars:100 }}</p>
                                             <div class="d-flex justify-content-between flex-lg-wrap">
                                                 <p class="text-dark fs-5 fw-bold mb-0">GHS {{ sh.product_price }}</p>
 

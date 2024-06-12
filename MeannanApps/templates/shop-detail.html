@@ -1,8 +1,19 @@
 {% extends 'base.html'%}
 {% load static %}
 {% block content%}
+<style>
+    
 
+.product-image {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+}
 
+.product-image:hover {
+    transform: scale(1.1);
+}
+</style>
         <!-- Single Product Start -->
         <div class="container-fluid py-5 mt-5">
             <div class="container py-5">
@@ -12,10 +23,13 @@
                             <div class="col-lg-6">
                                 <div class="border rounded">
                                     <a href="#">
-                                        <img src=" {{product.product_image.url }}" class="img-fluid rounded" alt="Image">
+                                        <img src="{{product.product_image.url}}" class="img-fluid rounded product-image" alt="Image">
                                     </a>
                                 </div>
                             </div>
+                            
+                            <!-- Add this to your CSS file -->
+                           
                             <div class="col-lg-6">
                                 <h4 class="fw-bold mb-3 pt-2">{{ product.product_name }}</h4>
                                 <p class="mb-3">Category: <strong>{{ product.category.category_name }}</strong></p>
@@ -42,7 +56,42 @@
                                         </button>
                                     </div>
                                 </div>
-                                <a href="#" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary"><i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart</a>
+                                <small style="font-weight:bold;">Choose your varient:</small>
+
+                                <select id="variant" class="form-select mb-4" style="width: 200px;" onchange="updatePriceAndUrl()">
+                                    <option value="{% url 'add_to_cart' product.id %}" data-price="{{ product.product_price }}">Main - Ghs {{ product.product_price }}</option>
+                                    {% for variant in product.productvariation_set.all %}
+                                        <option value="{% url 'add_to_cart' variant.id %}" data-price="{{ variant.price }}">{{ variant.weight }} - Ghs {{ variant.price }}</option>
+                                    {% endfor %}
+                                </select>   
+                                <h5 id="price" class="fw-bold mb-3">Ghs {{product.product_price}}</h5>
+                                {% if user.is_authenticated %}
+                                    <a id="add-to-cart-button" href="{% url 'add_to_cart' product.id %}" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary">
+                                        <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+                                    </a>
+                                {% else %}
+                                    <a id="login-button" href="#" onclick="showAlert()" class="btn border border-secondary rounded-pill px-4 py-2 mb-4 text-primary">
+                                        <i class="fa fa-shopping-bag me-2 text-primary"></i> Add to cart
+                                    </a>
+                                {% endif %}
+
+                                <script>
+                                    function showAlert() {
+                                        alert("Please login first");
+                                        window.location.href = "{% url 'account_login' %}";
+                                    }
+                                </script>
+                                <script>
+                                function updatePriceAndUrl() {
+                                    var select = document.getElementById("variant");
+                                    var selectedOption = select.options[select.selectedIndex];
+                                    var price = selectedOption.getAttribute("data-price");
+                                    var url = selectedOption.value;
+                                    document.getElementById("price").innerText = "Ghs " + price;
+                                    document.getElementById("add-to-cart-button").href = url;
+                                }
+                                updatePriceAndUrl();  // Call the function to set the initial price and URL
+                                </script>
                             </div>
                             <div class="col-lg-12">
                                 <nav>

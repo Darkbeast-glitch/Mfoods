@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 
 
@@ -50,6 +51,12 @@ class Shop(models.Model):
     def __str__(self) -> str:
         return self.product_name
 
+    @property
+    def total_price(self):
+        total = sum(item.product.price *
+                    item.quantity for item in self.cartitem_set.all())
+        return total
+
 
 class ProductVariation(models.Model):
     product = models.ForeignKey(Shop, on_delete=models.CASCADE)
@@ -73,6 +80,40 @@ class BillingAddress(models.Model):
 
     def __str__(self) -> str:
         return f"{self.name }"
+
+
+# cart model
+
+class Cart(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name = "Cart"
+        verbose_name_plural = "Carts"
+
+    def __str__(self):
+        return f"{self.user.username} - {self.created_at}"
+
+
+class CartItem(models.Model):
+    cart = models.ForeignKey(Cart, on_delete=models.CASCADE)
+    product = models.ForeignKey(Shop, on_delete=models.CASCADE)
+    product_variant = models.ForeignKey(
+        ProductVariation, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=0)
+
+    class Meta:
+        verbose_name = "CartItem"
+        verbose_name_plural = "CartItems"
+
+    def __str__(self):
+        return f"{self.product.product_name} - {self.quantity}"
+
+    @property
+    def total_price(self):
+        return self.product_variant.price * self.quantity
 
 
 class ContactUs(models.Model):

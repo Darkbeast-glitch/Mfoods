@@ -7,7 +7,9 @@ from .models import (
     Order,
     Category,
     Shop,
-    ProductVariation
+    ProductVariation,
+    Cart,
+    CartItem
 )
 
 # Register your models here.
@@ -36,3 +38,5 @@ admin.site.register(BillingAddress)
 admin.site.register(ContactUs)
 admin.site.register(ShippingAddress)
 admin.site.register(Order)
+admin.site.register(CartItem)
+admin.site.register(Cart)

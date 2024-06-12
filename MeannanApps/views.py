@@ -1,8 +1,9 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import redirect, render, get_object_or_404
 
-from .models import HomeProducts, Shop, Category, ContactUs
+from .models import CartItem, HomeProducts, ProductVariation, Shop, Category, ContactUs, Cart
 from django.db.models import Count
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 
@@ -92,18 +93,62 @@ def Contact(request):
 
 
 def Checkout(request):
-    context = {}
+    cart_items = CartItem.objects.filter(cart__user=request.user)
+    subtotal = sum(item.total_price for item in cart_items)
+
+    context = {
+        'cart_items': cart_items,
+        'subtotal': subtotal,
+
+
+    }
 
     template_page = 'checkout.html'
     return render(request, template_page, context)
 
 
-def Cart(request):
-    context = {}
+def CartViews(request):
+    cart_items = CartItem.objects.filter(cart__user=request.user)
+    cart_item_count = cart_items.count()
+    subtotal = sum(item.total_price for item in cart_items)
+
+    context = {
+        'cart_items': cart_items,
+        'cart_item_count': cart_item_count,
+        'subtotal': subtotal,
+
+
+    }
 
     template_page = 'cart.html'
 
     return render(request, template_page, context)
+
+
+# add to cart
+@login_required
+def add_to_cart(request, product_variation_id):
+    cart, created = Cart.objects.get_or_create(user=request.user)
+    product_variation = get_object_or_404(
+        ProductVariation, id=product_variation_id)
+    cart_item, created = CartItem.objects.get_or_create(
+        cart=cart, product_variant=product_variation, product=product_variation.product)
+    cart_item.quantity += 1
+    cart_item.save()
+    messages.success(request, "Yayy, we added    your product to cart😊")
+    return redirect('cart')
+
+
+# delete cart
+
+
+def remove_from_cart(request, item_id):
+    try:
+        item = CartItem.objects.get(id=item_id, cart__user=request.user)
+        item.delete()
+        return redirect('cart')
+    except CartItem.DoesNotExist:
+        return redirect('cart')
 
 
 def News(request):
@@ -136,7 +181,3 @@ def Failed(request):
     template_page = '404.html'
 
     return render(request, template_page, context)
-
-
-# logout
-# logout page
