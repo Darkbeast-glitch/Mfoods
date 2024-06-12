@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import HomePage, About, Contact, AllShop, Checkout, SingleProduct, Cart, News, SingleNews, Testimonial
+from .views import HomePage, About, Contact, AllShop, Checkout, SingleProduct, Cart, News, SingleNews, Testimonial, Failed
 from django.conf import settings
 from django.conf.urls.static import static
 
