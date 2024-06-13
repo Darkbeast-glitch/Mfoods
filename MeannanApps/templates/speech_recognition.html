@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Query and Response</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+            padding: 20px 0;
+        }
+        #query-form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        #query-input {
+            width: 60%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        #query-form button {
+            padding: 10px 20px;
+            border: none;
+            background-color: #333;
+            color: #fff;
+            cursor: pointer;
+            margin-left: 10px;
+            border-radius: 5px;
+        }
+        #response-audio {
+            display: block;
+            width: 80%;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+    <h1>Ask about our shop</h1>
+    <form id="query-form" method="post">
+        {% csrf_token %}
+        <input type="text" name="query" id="query-input" placeholder="Type your question here">
+        <button type="submit">Submit</button>
+    </form>
+    <audio id="response-audio" controls></audio>
+
+<script>
+    document.getElementById('query-form').onsubmit = function(event) {
+        event.preventDefault();
+        const query = document.getElementById('query-input').value;
+
+        fetch('/speech-recognition/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: new URLSearchParams({ query: query })
+        })
+        .then(response => response.blob())
+        .then(blob => {
+            const url = URL.createObjectURL(blob);
+            document.getElementById('response-audio').src = url;
+            document.getElementById('response-audio').play();
+        })
+        .catch(error => console.error('Error:', error));
+    };
+</script>
+</body>
+</html>

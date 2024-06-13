@@ -69,9 +69,13 @@ class ProductVariation(models.Model):
 
 
 class BillingAddress(models.Model):
-    name = models.CharField(max_length=50, blank=True, null=True)
+    first_name = models.CharField(max_length=50, blank=True, null=True)
+    last_name = models.CharField(max_length=50, blank=True, null=True)
     emailaddress = models.EmailField(blank=True, null=True)
     address = models.CharField(max_length=200, blank=True, null=True)
+
+    town_city = models.CharField(max_length=100, blank=True, null=True)
+
     phone = models.IntegerField()
 
     class Meta:
@@ -79,7 +83,7 @@ class BillingAddress(models.Model):
         verbose_name_plural = "Billing Addresses"
 
     def __str__(self) -> str:
-        return f"{self.name }"
+        return f"{self.first_name, self.last_name}"
 
 
 # cart model

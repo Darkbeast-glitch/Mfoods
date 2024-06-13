@@ -12,7 +12,8 @@ from .views import (
     Testimonial,
     Failed,
     add_to_cart,
-    remove_from_cart
+    remove_from_cart,
+    speech_recognition
 )
 from django.conf import settings
 from django.conf.urls.static import static
@@ -32,6 +33,7 @@ urlpatterns = [
     path('add_to_cart/<int:product_variation_id>/',
          add_to_cart, name='add_to_cart'),
     path('cart/remove/<int:item_id>/', remove_from_cart, name='remove_from_cart'),
+    path('speech-recognition/', speech_recognition, name='speech_recognition'),
 
 
 ]
