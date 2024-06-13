@@ -69,14 +69,14 @@ class ProductVariation(models.Model):
 
 
 class BillingAddress(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
     first_name = models.CharField(max_length=50, blank=True, null=True)
     last_name = models.CharField(max_length=50, blank=True, null=True)
     emailaddress = models.EmailField(blank=True, null=True)
     address = models.CharField(max_length=200, blank=True, null=True)
-
     town_city = models.CharField(max_length=100, blank=True, null=True)
-
-    phone = models.IntegerField()
+    phone = models.CharField(max_length=50, blank=True, null=True)
 
     class Meta:
         verbose_name = "Billing Address"
@@ -91,6 +91,8 @@ class BillingAddress(models.Model):
 class Cart(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
+    items = models.ManyToManyField('CartItem', related_name='carts')
+
     created_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
@@ -155,8 +157,15 @@ class ShippingAddress(models.Model):
 
 
 class Order(models.Model):
-    products = models.ForeignKey(HomeProducts, on_delete=models.CASCADE)
-    client = models.CharField(max_length=200, blank=True, null=True)
+    user = models.ForeignKey(settings.AUTH_USER_MODEL,
+                             on_delete=models.CASCADE)
+    billing_address = models.ForeignKey(
+        BillingAddress, on_delete=models.SET_NULL, null=True)
+    date_ordered = models.DateTimeField(
+        auto_now_add=True, blank=True, null=True)
+
+    def __str__(self):
+        return f"Order {self.id}"
 
     class Meta:
         verbose_name = "Order"
@@ -164,3 +173,13 @@ class Order(models.Model):
 
         def __str__(self):
             return f"{self.products,self.client}"
+
+
+class OrderItem(models.Model):
+    order = models.ForeignKey(
+        Order, on_delete=models.CASCADE, related_name='items')
+    product = models.ForeignKey(Shop, on_delete=models.CASCADE)
+    quantity = models.IntegerField(blank=True, null=True)
+
+    def __str__(self):
+        return f"{self.quantity} of {self.product}"

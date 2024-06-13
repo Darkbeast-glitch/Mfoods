@@ -1,6 +1,6 @@
 from django.shortcuts import redirect, render, get_object_or_404
 
-from .models import BillingAddress, CartItem, HomeProducts, ProductVariation, Shop, Category, ContactUs, Cart
+from .models import BillingAddress, CartItem, HomeProducts, Order, OrderItem, ProductVariation, Shop, Category, ContactUs, Cart
 from django.db.models import Count
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
@@ -189,6 +189,21 @@ def Contact(request):
 
 def Checkout(request):
     billing_address = BillingAddress.objects.all()
+    user = request.user
+    cart = Cart.objects.get(user=user)
+
+    order = Order(user=user)
+    order.save()
+
+    # For each item in the cart, create an OrderItem and add it to the order
+    for cart_item in cart.items.all():
+        order_item = OrderItem(
+            order=order, product=cart_item.product, quantity=cart_item.quantity)
+        order_item.save()
+
+    # Clear the cart
+    cart.items.clear()
+
     if request.method == 'POST':
         first_name = request.POST["first_name"]
         last_name = request.POST["last_name"]
@@ -197,7 +212,7 @@ def Checkout(request):
         town_city = request.POST["town"]
         phone = request.POST["phone"]
 
-        billing_address_save = BillingAddress(first_name=first_name, last_name=last_name,
+        billing_address_save = BillingAddress(user=user, first_name=first_name, last_name=last_name,
                                               emailaddress=email_address, address=address, town_city=town_city, phone=phone)
         billing_address_save.save()
 
